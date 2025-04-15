@@ -1,0 +1,305 @@
+{
+  "title": "HOUSE OF GUCCI",
+  "genre": "Crime, Drama",
+  "duration": "2h 38m",
+  "rating": "R",
+  "director": "Ridley Scott",
+  "image": "https://ik.imagekit.io/dimple123/houseofgucci.png",
+  "days": [
+    {
+      "dayOffset": 0,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "INOX VR Surat",
+              "location": "VR Mall, Surat",
+              "chain": "INOX",
+              "screens": [
+                {
+                  "name": "CINEPOLIS",
+                  "price": 240,
+                  "slots": [
+                    { "time": "10:30" },
+                    { "time": "1:45" },
+                    { "time": "5:00" },
+                    { "time": "8:15" }
+                  ]
+                },
+                {
+                  "name": "GOLD CLASS 2D",
+                  "price": 300,
+                  "slots": [
+                    { "time": "12:00" },
+                    { "time": "3:00" },
+                    { "time": "6:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "PVR Acropolis",
+              "location": "Thaltej, Ahmedabad",
+              "chain": "PVR",
+              "screens": [
+                {
+                  "name": "REGULAR 2D",
+                  "price": 200,
+                  "slots": [
+                    { "time": "11:00" },
+                    { "time": "2:15" },
+                    { "time": "5:30" }
+                  ]
+                },
+                {
+                  "name": "VELVET 2D",
+                  "price": 280,
+                  "slots": [
+                    { "time": "1:00" },
+                    { "time": "4:00" },
+                    { "time": "7:00" },
+                    { "time": "10:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dayOffset": 1,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "Valentine Multiplex",
+              "location": "Dumas Road, Surat",
+              "chain": "Valentine",
+              "screens": [
+                {
+                  "name": "2D",
+                  "price": 220,
+                  "slots": [
+                    { "time": "9:30" },
+                    { "time": "12:45" },
+                    { "time": "4:00" }
+                  ]
+                },
+                {
+                  "name": "CGV",
+                  "price": 250,
+                  "slots": [
+                    { "time": "11:00" },
+                    { "time": "2:15" },
+                    { "time": "5:30" },
+                    { "time": "8:45" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "City Gold Bapunagar",
+              "location": "Bapunagar, Ahmedabad",
+              "chain": "City Gold",
+              "screens": [
+                {
+                  "name": "XXI",
+                  "price": 230,
+                  "slots": [
+                    { "time": "10:00" },
+                    { "time": "1:00" },
+                    { "time": "4:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dayOffset": 2,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "Rajhans Multiplex",
+              "location": "Adajan, Surat",
+              "chain": "Rajhans",
+              "screens": [
+                {
+                  "name": "GOLD CLASS 2D",
+                  "price": 270,
+                  "slots": [
+                    { "time": "11:30" },
+                    { "time": "3:00" },
+                    { "time": "6:30" }
+                  ]
+                },
+                {
+                  "name": "2D",
+                  "price": 200,
+                  "slots": [
+                    { "time": "10:00" },
+                    { "time": "1:00" },
+                    { "time": "4:00" },
+                    { "time": "7:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "PVR Motera",
+              "location": "Motera, Ahmedabad",
+              "chain": "PVR",
+              "screens": [
+                {
+                  "name": "CGV",
+                  "price": 260,
+                  "slots": [
+                    { "time": "10:45" },
+                    { "time": "2:00" },
+                    { "time": "5:15" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dayOffset": 3,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "INOX Rahul Raj",
+              "location": "Piplod, Surat",
+              "chain": "INOX",
+              "screens": [
+                {
+                  "name": "REGULAR 2D",
+                  "price": 210,
+                  "slots": [
+                    { "time": "9:00" },
+                    { "time": "12:00" },
+                    { "time": "3:00" }
+                  ]
+                },
+                {
+                  "name": "CINEPOLIS",
+                  "price": 260,
+                  "slots": [
+                    { "time": "10:30" },
+                    { "time": "1:45" },
+                    { "time": "5:00" },
+                    { "time": "8:15" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "Wide Angle",
+              "location": "Sarkhej, Ahmedabad",
+              "chain": "Wide Angle",
+              "screens": [
+                {
+                  "name": "VELVET 2D",
+                  "price": 300,
+                  "slots": [
+                    { "time": "12:15" },
+                    { "time": "3:30" },
+                    { "time": "6:45" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dayOffset": 4,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "Cinemax Multiplex",
+              "location": "LP Savani Road, Surat",
+              "chain": "Cinemax",
+              "screens": [
+                {
+                  "name": "XXI",
+                  "price": 250,
+                  "slots": [
+                    { "time": "11:00" },
+                    { "time": "2:30" },
+                    { "time": "6:00" }
+                  ]
+                },
+                {
+                  "name": "CGV",
+                  "price": 275,
+                  "slots": [
+                    { "time": "1:00" },
+                    { "time": "4:15" },
+                    { "time": "7:30" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "Cinepolis One Mall",
+              "location": "SG Highway, Ahmedabad",
+              "chain": "Cinepolis",
+              "screens": [
+                {
+                  "name": "2D",
+                  "price": 240,
+                  "slots": [
+                    { "time": "10:00" },
+                    { "time": "1:15" },
+                    { "time": "4:30" },
+                    { "time": "7:45" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

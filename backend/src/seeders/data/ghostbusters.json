@@ -1,0 +1,324 @@
+{
+  "title": "GHOSTBUSTERS: AFTERLIFE",
+  "genre": "Adventure",
+  "duration": "2h 4m",
+  "rating": "PG-13",
+  "director": "Jason Reitman",
+  "image": "https://ik.imagekit.io/dimple123/ghostbusters.png",
+  "days": [
+    {
+      "dayOffset": 0,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "INOX VR Mall",
+              "location": "Dumas Road",
+              "chain": "INOX",
+              "screens": [
+                {
+                  "name": "2D",
+                  "price": 220,
+                  "slots": [
+                    { "time": "10:00" },
+                    { "time": "13:00" },
+                    { "time": "16:00" }
+                  ]
+                },
+                {
+                  "name": "GOLD CLASS 2D",
+                  "price": 350,
+                  "slots": [
+                    { "time": "11:00" },
+                    { "time": "14:30" },
+                    { "time": "18:00" },
+                    { "time": "21:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "PVR Acropolis",
+              "location": "Thaltej",
+              "chain": "PVR",
+              "screens": [
+                {
+                  "name": "CINEPOLIS",
+                  "price": 270,
+                  "slots": [
+                    { "time": "10:30" },
+                    { "time": "13:30" },
+                    { "time": "16:30" },
+                    { "time": "19:30" }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Rajhans Prime",
+              "location": "SG Highway",
+              "chain": "Rajhans",
+              "screens": [
+                {
+                  "name": "REGULAR 2D",
+                  "price": 180,
+                  "slots": [
+                    { "time": "11:00" },
+                    { "time": "14:00" },
+                    { "time": "17:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dayOffset": 1,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "Valentine Multiplex",
+              "location": "Dumas Road",
+              "chain": "Valentine",
+              "screens": [
+                {
+                  "name": "XXI",
+                  "price": 200,
+                  "slots": [
+                    { "time": "09:00" },
+                    { "time": "12:00" },
+                    { "time": "15:00" }
+                  ]
+                },
+                {
+                  "name": "VELVET 2D",
+                  "price": 320,
+                  "slots": [
+                    { "time": "11:30" },
+                    { "time": "15:30" },
+                    { "time": "18:30" },
+                    { "time": "21:30" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "Cinemax City Gold",
+              "location": "Ashram Road",
+              "chain": "Cinemax",
+              "screens": [
+                {
+                  "name": "2D",
+                  "price": 210,
+                  "slots": [
+                    { "time": "10:00" },
+                    { "time": "13:00" },
+                    { "time": "16:00" }
+                  ]
+                },
+                {
+                  "name": "REGULAR 2D",
+                  "price": 180,
+                  "slots": [
+                    { "time": "11:00" },
+                    { "time": "14:00" },
+                    { "time": "17:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dayOffset": 2,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "PVR RahulRaj Mall",
+              "location": "VIP Road",
+              "chain": "PVR",
+              "screens": [
+                {
+                  "name": "CGV",
+                  "price": 250,
+                  "slots": [
+                    { "time": "10:15" },
+                    { "time": "13:15" },
+                    { "time": "16:15" },
+                    { "time": "19:15" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "Cinepolis One Mall",
+              "location": "CG Road",
+              "chain": "Cinepolis",
+              "screens": [
+                {
+                  "name": "CINEPOLIS",
+                  "price": 280,
+                  "slots": [
+                    { "time": "11:00" },
+                    { "time": "14:00" },
+                    { "time": "17:00" },
+                    { "time": "20:00" }
+                  ]
+                },
+                {
+                  "name": "GOLD CLASS 2D",
+                  "price": 360,
+                  "slots": [
+                    { "time": "12:00" },
+                    { "time": "15:00" },
+                    { "time": "18:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dayOffset": 3,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "Rajhans Multiplex",
+              "location": "Ring Road",
+              "chain": "Rajhans",
+              "screens": [
+                {
+                  "name": "VELVET 2D",
+                  "price": 240,
+                  "slots": [
+                    { "time": "10:30" },
+                    { "time": "13:30" },
+                    { "time": "16:30" },
+                    { "time": "19:30" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "Wide Angle",
+              "location": "Satellite",
+              "chain": "Wide Angle",
+              "screens": [
+                {
+                  "name": "REGULAR 2D",
+                  "price": 190,
+                  "slots": [
+                    { "time": "09:30" },
+                    { "time": "12:30" },
+                    { "time": "15:30" }
+                  ]
+                },
+                {
+                  "name": "CGV",
+                  "price": 270,
+                  "slots": [
+                    { "time": "11:00" },
+                    { "time": "14:00" },
+                    { "time": "17:00" },
+                    { "time": "20:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dayOffset": 4,
+      "cities": [
+        {
+          "name": "Surat",
+          "theatres": [
+            {
+              "name": "INOX RahulRaj",
+              "location": "VIP Road",
+              "chain": "INOX",
+              "screens": [
+                {
+                  "name": "2D",
+                  "price": 220,
+                  "slots": [
+                    { "time": "10:00" },
+                    { "time": "13:00" },
+                    { "time": "16:00" }
+                  ]
+                },
+                {
+                  "name": "GOLD CLASS 2D",
+                  "price": 350,
+                  "slots": [
+                    { "time": "11:00" },
+                    { "time": "14:30" },
+                    { "time": "18:00" },
+                    { "time": "21:00" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ahmedabad",
+          "theatres": [
+            {
+              "name": "PVR CG Square",
+              "location": "CG Road",
+              "chain": "PVR",
+              "screens": [
+                {
+                  "name": "XXI",
+                  "price": 260,
+                  "slots": [
+                    { "time": "09:30" },
+                    { "time": "12:30" },
+                    { "time": "15:30" },
+                    { "time": "18:30" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

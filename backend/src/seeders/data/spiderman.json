@@ -1,0 +1,381 @@
+{
+    "title": "SPIDERMAN: NO WAY HOME",
+    "genre": "Action",
+    "duration": "2h 28m",
+    "rating": "PG-13",
+    "director": "Jon Watts",
+    "image": "https://ik.imagekit.io/dimple123/spiderman.png",
+    "days": [
+      {
+        "dayOffset": 0,
+        "cities": [
+          {
+            "name": "Surat",
+            "theatres": [
+              {
+                "name": "PVR Nexus",
+                "location": "VIP Road",
+                "chain": "PVR",
+                "screens": [
+                  {
+                    "name": "REGULAR 2D",
+                    "price": 200,
+                    "slots": [
+                      { "time": "09:00" },
+                      { "time": "12:00" },
+                      { "time": "15:00" },
+                      { "time": "18:00" }
+                    ]
+                  },
+                  {
+                    "name": "XXI",
+                    "price": 300,
+                    "slots": [
+                      { "time": "10:00" },
+                      { "time": "13:00" },
+                      { "time": "16:00" }
+                    ]
+                  },
+                  {
+                    "name": "2D",
+                    "price": 200,
+                    "slots": [
+                      { "time": "11:00" },
+                      { "time": "14:00" },
+                      { "time": "17:00" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Ahmedabad",
+            "theatres": [
+              {
+                "name": "City Gold",
+                "location": "Ashram Road",
+                "chain": "City Gold",
+                "screens": [
+                  {
+                    "name": "2D",
+                    "price": 220,
+                    "slots": [
+                      { "time": "09:30" },
+                      { "time": "12:30" },
+                      { "time": "15:30" },
+                      { "time": "18:30" },
+                      { "time": "21:30" }
+                    ]
+                  },
+                  {
+                    "name": "GOLD CLASS 2D",
+                    "price": 250,
+                    "slots": [
+                      { "time": "10:00" },
+                      { "time": "13:00" },
+                      { "time": "16:00" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dayOffset": 1,
+        "cities": [
+          {
+            "name": "Surat",
+            "theatres": [
+              {
+                "name": "INOX VR Mall",
+                "location": "Dumas Road",
+                "chain": "INOX",
+                "screens": [
+                  {
+                    "name": "CINEPOLIS",
+                    "price": 230,
+                    "slots": [
+                      { "time": "10:00" },
+                      { "time": "13:00" },
+                      { "time": "16:00" }
+                    ]
+                  },
+                  {
+                    "name": "VELVET 2D",
+                    "price": 280,
+                    "slots": [
+                      { "time": "11:00" },
+                      { "time": "14:00" },
+                      { "time": "17:00" },
+                      { "time": "20:00" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Ahmedabad",
+            "theatres": [
+              {
+                "name": "PVR Acropolis",
+                "location": "SG Highway",
+                "chain": "PVR",
+                "screens": [
+                  {
+                    "name": "2D",
+                    "price": 220,
+                    "slots": [
+                      { "time": "10:30" },
+                      { "time": "13:30" },
+                      { "time": "16:30" }
+                    ]
+                  },
+                  {
+                    "name": "REGULAR 2D",
+                    "price": 200,
+                    "slots": [
+                      { "time": "09:00" },
+                      { "time": "12:00" },
+                      { "time": "15:00" }
+                    ]
+                  },
+                  {
+                    "name": "GOLD CLASS 2D",
+                    "price": 300,
+                    "slots": [
+                      { "time": "11:00" },
+                      { "time": "14:00" },
+                      { "time": "17:00" },
+                      { "time": "20:00" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dayOffset": 2,
+        "cities": [
+          {
+            "name": "Surat",
+            "theatres": [
+              {
+                "name": "Cinemax",
+                "location": "Pal Road",
+                "chain": "Cinemax",
+                "screens": [
+                  {
+                    "name": "CGV",
+                    "price": 220,
+                    "slots": [
+                      { "time": "09:00" },
+                      { "time": "12:00" },
+                      { "time": "15:00" }
+                    ]
+                  },
+                  {
+                    "name": "GOLD CLASS 2D",
+                    "price": 270,
+                    "slots": [
+                      { "time": "10:30" },
+                      { "time": "13:30" },
+                      { "time": "16:30" },
+                      { "time": "19:30" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Ahmedabad",
+            "theatres": [
+              {
+                "name": "Rajhans Prime",
+                "location": "Maninagar",
+                "chain": "Rajhans",
+                "screens": [
+                  {
+                    "name": "2D",
+                    "price": 200,
+                    "slots": [
+                      { "time": "10:00" },
+                      { "time": "13:00" },
+                      { "time": "16:00" }
+                    ]
+                  },
+                  {
+                    "name": "VELVET 2D",
+                    "price": 260,
+                    "slots": [
+                      { "time": "11:00" },
+                      { "time": "14:00" },
+                      { "time": "17:00" },
+                      { "time": "20:00" }
+                    ]
+                  },
+                  {
+                    "name": "CINEPOLIS",
+                    "price": 240,
+                    "slots": [
+                      { "time": "12:00" },
+                      { "time": "15:00" },
+                      { "time": "18:00" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dayOffset": 3,
+        "cities": [
+          {
+            "name": "Surat",
+            "theatres": [
+              {
+                "name": "INOX Galleria",
+                "location": "Adajan",
+                "chain": "INOX",
+                "screens": [
+                  {
+                    "name": "REGULAR 2D",
+                    "price": 210,
+                    "slots": [
+                      { "time": "09:30" },
+                      { "time": "12:30" },
+                      { "time": "15:30" },
+                      { "time": "18:30" }
+                    ]
+                  },
+                  {
+                    "name": "XXI",
+                    "price": 280,
+                    "slots": [
+                      { "time": "11:00" },
+                      { "time": "14:00" },
+                      { "time": "17:00" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Ahmedabad",
+            "theatres": [
+              {
+                "name": "PVR Arved",
+                "location": "Vastrapur",
+                "chain": "PVR",
+                "screens": [
+                  {
+                    "name": "CGV",
+                    "price": 250,
+                    "slots": [
+                      { "time": "09:00" },
+                      { "time": "12:00" },
+                      { "time": "15:00" },
+                      { "time": "18:00" }
+                    ]
+                  },
+                  {
+                    "name": "XXI",
+                    "price": 270,
+                    "slots": [
+                      { "time": "10:30" },
+                      { "time": "13:30" },
+                      { "time": "16:30" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dayOffset": 4,
+        "cities": [
+          {
+            "name": "Surat",
+            "theatres": [
+              {
+                "name": "Rajhans Multiplex",
+                "location": "Udhna",
+                "chain": "Rajhans",
+                "screens": [
+                  {
+                    "name": "VELVET 2D",
+                    "price": 270,
+                    "slots": [
+                      { "time": "10:00" },
+                      { "time": "13:00" },
+                      { "time": "16:00" }
+                    ]
+                  },
+                  {
+                    "name": "2D",
+                    "price": 200,
+                    "slots": [
+                      { "time": "09:00" },
+                      { "time": "12:00" },
+                      { "time": "15:00" }
+                    ]
+                  },
+                  {
+                    "name": "GOLD CLASS 2D",
+                    "price": 300,
+                    "slots": [
+                      { "time": "11:00" },
+                      { "time": "14:00" },
+                      { "time": "17:00" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Ahmedabad",
+            "theatres": [
+              {
+                "name": "City Pulse",
+                "location": "Gandhinagar",
+                "chain": "City Pulse",
+                "screens": [
+                  {
+                    "name": "CINEPOLIS",
+                    "price": 250,
+                    "slots": [
+                      { "time": "09:30" },
+                      { "time": "12:30" },
+                      { "time": "15:30" }
+                    ]
+                  },
+                  {
+                    "name": "REGULAR 2D",
+                    "price": 200,
+                    "slots": [
+                      { "time": "10:00" },
+                      { "time": "13:00" },
+                      { "time": "16:00" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
