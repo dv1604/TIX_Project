@@ -2,22 +2,15 @@ import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/materi
 import React from 'react'
 import ASSESTS from '../../assests'
 import { useNavigate } from 'react-router'
+import { newsResponse } from '../../types/newsResponse'
 
 const NewsCard : React.FC<{
-    article:{
-        id:Number,
-        title:string,
-        description:string,
-        image:string,
-        category:'Spotlight' | 'News' | "Video",
-        videoUrl?: string;
-    },
+    article:newsResponse,
     index : number
 }> = ({article,index}) => {
     const theme = useTheme();
     const isMdm = useMediaQuery(theme.breakpoints.down('md'))
     const isEven = index%2 == 0
-    console.log(index)
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -87,7 +80,7 @@ const NewsCard : React.FC<{
                         color:'secondary.main',
                         fontSize:{xs:'24px',lg:'28px',xl:'32px'}
                     }}>
-                        {article.title}
+                        {article.heading}
                     </Typography>
                     <Typography
                         variant='body1'

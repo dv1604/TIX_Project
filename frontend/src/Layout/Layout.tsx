@@ -1,10 +1,10 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer";
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Layout: React.FC = () => {
   const location = useLocation();
   const hideHeaderFooter = ["/login", "/register", "/email-input"].includes(location.pathname);
 
@@ -19,7 +19,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           marginBottom: hideHeaderFooter ? "0px" : "50px",
         }}
       >
-        {children}
+        <Outlet/>
       </Box>
       {!hideHeaderFooter && <Footer />}
     </>

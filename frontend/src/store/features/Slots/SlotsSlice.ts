@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface SlotsState {
     movieName: string;
     movieId:number;
+    slotId : number;
     theatreName: string;
     city: string;
     slots: string[];
@@ -15,6 +16,7 @@ interface SlotsState {
 const initialState: SlotsState = {
     movieName: '',
     movieId:0,
+    slotId : 0,
     theatreName: '',
     city: '',
     slots: [],
@@ -37,6 +39,9 @@ const SlotsSlice = createSlice({
         },
         setMovieName: (state, action: PayloadAction<string>) => {
             state.movieName = action.payload;
+        },
+        setSlotId:(state,action : PayloadAction<number>)=>{
+            state.slotId = action.payload;
         },
 
         setSelectedSeats: (state, action: PayloadAction<string[]>) => {

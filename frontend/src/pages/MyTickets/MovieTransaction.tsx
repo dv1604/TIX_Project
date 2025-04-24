@@ -75,7 +75,7 @@ const MovieTransaction: React.FC<{
             {/* Status Box */}
             {showStatus && (
                 <Box sx={{
-                    bgcolor: movies.status === 'successful' ? 'links.main' : 'rgba(255, 107, 107, 1)',
+                    bgcolor: movies.status === 'Sucess' ? 'links.main' : 'rgba(255, 107, 107, 1)',
                     height: 'fit-content',
                     padding: 1.5,
                     minWidth: '100px',
@@ -83,7 +83,7 @@ const MovieTransaction: React.FC<{
                     textTransform:'capitalize',
                     fontWeight:'bold'
                 }}>
-                    {movies.status}
+                    {movies.status === 'Sucess' ? 'Success' : 'Failed'}
                 </Box>
             )}
         </Container>

@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store/store'
 import { useNavigate } from 'react-router'
 import { selectSeat } from '../../../store/features/Booking/bookingSlice'
+import { slotsActions } from '../../../store/features/Slots/SlotsSlice'
+import { setPaymentDetails, setTotalAmount } from '../../../store/features/Payment/PaymentSlice'
 
-const SeatInfo = () => {
+const SeatInfo : React.FC = () => {
 
-    const {selectedSeats,totalAmount,movieId} = useSelector((state:RootState)=>{
+    const {selectedSeats,totalAmount,movieId, slotId} = useSelector((state:RootState)=>{
         return state.slots
     });
     const {isAuthenticated} = useSelector((state:RootState)=>{
@@ -21,6 +23,7 @@ const SeatInfo = () => {
             navigate("/login"); 
         } else {
             dispatch(selectSeat());
+            dispatch(setTotalAmount(totalAmount));
             navigate("/payment"); 
         }
     }
@@ -87,7 +90,10 @@ const SeatInfo = () => {
             }}>
                 <Button
                 variant='outlined'
-                onClick={()=> navigate(`/slots/${movieId}`)}
+                onClick={()=> {
+                    navigate(`/slots/${movieId}`)
+                    dispatch(slotsActions.resetSlot());
+                }}
                 sx={{
                     height:48,
                     width:199,

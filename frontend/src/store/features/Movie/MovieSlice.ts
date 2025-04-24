@@ -46,6 +46,10 @@ const MovieSlice = createSlice({
         setChain:(state,action: PayloadAction<string>)=>{
             state.selectedChain= action.payload;
         },
+        resetFilters:(state) => {
+            state.selectedChain = initialState.selectedChain;
+            state.selectedStudio = initialState.selectedStudio;
+        },
         resetState: (state) => {
             return initialState;
           },

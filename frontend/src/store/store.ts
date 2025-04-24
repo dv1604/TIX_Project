@@ -6,16 +6,21 @@ import newsReducer from "./features/News/newsSlice";
 import movieReducer from "./features/Movie/MovieSlice";
 import slotsReducer from "./features/Slots/SlotsSlice";
 import authReducer from "./features/Authentication/authSlice";
+import paymentReducer from "./features/Payment/PaymentSlice";
 import bookingReducer from "./features/Booking/bookingSlice";
 import authApiReducer , { authApi } from "./features/Authentication/authApi";
 import movieApiReducer,{ movieApi } from "./features/Movie/movieApi";
+import seatApiReducer,{ seatApi } from "./features/Slots/SeatApi";
+import bookingApiReducer,{ bookingApi } from "./features/Booking/bookingApi";
+import paymentApiReducer,{ paymentApi } from "./features/Payment/paymentApi";
+import newsApiReducer,{ newsApi } from "./features/News/newsApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 // Persist Configurations
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "booking", "slots", "movie"], 
+  whitelist: ["auth", "booking", "slots", "movie","payment"], 
 };
 
 
@@ -25,8 +30,13 @@ const rootReducer = combineReducers({
   slots: slotsReducer,
   auth: authReducer,
   booking: bookingReducer,
+  payment : paymentReducer,
   [authApi.reducerPath] : authApiReducer,
-  [movieApi.reducerPath] : movieApiReducer
+  [movieApi.reducerPath] : movieApiReducer,
+  [seatApi.reducerPath] : seatApiReducer,
+  [paymentApi.reducerPath] : paymentApiReducer,
+  [bookingApi.reducerPath] : bookingApiReducer,
+  [newsApi.reducerPath] : newsApiReducer
 });
 
 
@@ -38,7 +48,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(authApi.middleware, movieApi.middleware),
+    }).concat(authApi.middleware, movieApi.middleware, seatApi.middleware , paymentApi.middleware, bookingApi.middleware, newsApi.middleware),
 });
 
 setupListeners(store.dispatch);

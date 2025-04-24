@@ -7,22 +7,22 @@ import { Slot } from "../entities/Slot";
 
 export type SlotResponse = Pick<Slot,"id"| "time">;
 
-export type ScreenResponse = Pick<Screens, "name" | "price"> & {
+export type ScreenResponse = Pick<Screens, "id"|"name" | "price"> & {
   slots: SlotResponse[];
 };
 
-export type TheatreResponse = Pick<Theatre, "name" | "location" | "chain"> & {
+export type TheatreResponse = Pick<Theatre, "id"|"name" | "location" | "chain"> & {
   screens: ScreenResponse[];
 };
 
-export type CityResponse = Pick<Cities, "name"> & {
+export type CityResponse = Pick<Cities, "id"|"name"> & {
   theatres: TheatreResponse[];
 };
 
-export type DayResponse = Pick<Days, "dayOffset"> & {
+export type DayResponse = Pick<Days, "id"|"dayOffset"> & {
   cities: CityResponse[];
 };
 
-export type MovieResponse = Pick<Movies, "title" | "genre" | "duration" | "rating" | "director" | "image"> & {
+export type MovieResponse = Pick<Movies, "id"| "title" | "genre" | "duration" | "rating" | "director" | "image"> & {
   days: DayResponse[];
 };

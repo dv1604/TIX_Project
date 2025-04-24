@@ -1,17 +1,45 @@
 import { ArrowDropDown, ExpandMore, Search } from '@mui/icons-material'
 import { Box, Container, FormControl, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCategory, selectKeywords } from '../../../store/features/News/newsLogic';
 import OvalButton from '../../../components/Buttons/OvalButton';
 import { setCategory, setKeyword, setSearchQuery } from '../../../store/features/News/newsSlice';
+import { RootState } from '../../../store/store';
+import { useGetKeywordsMutation } from '../../../store/features/News/newsApi';
 
 const Header = () => {
-    const selectedCategory = useSelector(selectCategory);
+    // const selectedCategory = useSelector(selectCategory);
     const dispatch = useDispatch();
     const keywords = useSelector(selectKeywords);
 
+    const {selectedCategory} = useSelector((state : RootState) => {
+        return state.news
+    })
+
+    const [getKeywords , {isLoading}] = useGetKeywordsMutation();
+
+    const [keywordList, setKeywordList] = useState<{keyword_id:number , keyword_name : string}[]|[]>([]);
+
     const [isFirstLoad, setIsFirstLoad] = useState(true);
+
+    useEffect(()=>{
+
+        const fetchKeywords = async() =>{
+            const keywords = await getKeywords({category : selectedCategory }).unwrap();
+            console.log(keywords)
+            setKeywordList(keywords);
+        }
+
+        try{
+
+            fetchKeywords()
+
+        }catch(err){
+            console.log(err)
+        }
+
+    },[selectedCategory,getKeywords])
 
     const handleChange = (event: SelectChangeEvent<string>) => {
         const value = event.target.value as "Spotlight" | "News" | "Video"; // Type assertion
@@ -107,12 +135,13 @@ const Header = () => {
                 gap: 2
             }}>
                 {/* all available keywords */}
-                {keywords.map((keyword, index) => (
+                {keywordList.map((keyword, index) => (
                     <OvalButton
+                        
                         key={index}
-                        onClick={(() => dispatch(setKeyword(keyword)))}
+                        onClick={(() => dispatch(setKeyword(keyword.keyword_name)))}
                     >
-                        {keyword}
+                        {keyword.keyword_name}
                     </OvalButton>
                 ))}
             </Box>

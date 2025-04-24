@@ -14,7 +14,6 @@ import { useGetAllMovieQuery } from '../../store/features/Movie/movieApi';
 const MovieCarousel = () => {
 
     const {data,isLoading} = useGetAllMovieQuery();
-    console.log(data)
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'));

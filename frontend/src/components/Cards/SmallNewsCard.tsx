@@ -1,12 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
+import { newsResponse } from '../../types/newsResponse'
 
 const SmallNewsCard : React.FC<{
-  news : {
-    image:string,
-    category:string,
-    title:string
-  }
+  news : newsResponse
 }> = ({news}) => {
   return (
     <Box
@@ -51,7 +48,7 @@ const SmallNewsCard : React.FC<{
           }}>{news.category}</Typography>
 
           {/* News Title */}
-        <Typography sx={{ color: 'rgba(51, 51, 51, 1)', fontSize: { xs: 16, sm: 20, lg: '20' } }} variant='h3'>{news.title}</Typography>
+        <Typography sx={{ color: 'rgba(51, 51, 51, 1)', fontSize: { xs: 16, sm: 20, lg: '20' } }} variant='h3'>{news.heading}</Typography>
 
         {/* News Date */}
         <Typography variant='body2' sx={{ color: 'rgba(51, 51, 51, 1)' }}>17 Nov 2021 | TIX ID</Typography>

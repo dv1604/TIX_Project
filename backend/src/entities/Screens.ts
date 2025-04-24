@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { Theatre } from "./Theatre";
 import { Slot } from "./Slot";
 import { CityShowing } from "./CityShowing";
+import { Booking } from "./Booking";
 
 @Entity()
 export class Screens{
@@ -21,6 +22,9 @@ export class Screens{
 
     @OneToMany(() => Slot , (slot) =>  slot.screen)
     slots : Slot[]
+
+    @OneToMany(() => Booking , (booking) => booking.screen)
+    bookings : Booking[]
 
 
 }

@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CityShowing } from "./CityShowing";
+import { Booking } from "./Booking";
 
 @Entity()
 export class Movies{
@@ -27,5 +28,8 @@ export class Movies{
 
    @OneToMany(() => CityShowing , (CityShowing) => CityShowing.movie)
    cityShowings : CityShowing[];
+
+   @OneToMany(() => Booking , (Booking) => Booking.movie)
+   bookings : Booking[]
 
 }

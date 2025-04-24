@@ -1,15 +1,50 @@
 import { Box, Container, Divider, Typography, useMediaQuery, useTheme } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectedFilteredArticles } from '../../../store/features/News/newsLogic'
 import NewsCard from '../NewsCard'
 import RecommendNews from '../../../components/RecommendNews'
+import { useGetFilteredNewsMutation } from '../../../store/features/News/newsApi'
+import { RootState } from '../../../store/store'
+import { newsResponse } from '../../../types/newsResponse'
+
 
 const FilteredArticles = () => {
   const filteredArticles = useSelector(selectedFilteredArticles);
   const theme = useTheme();
   const isMdm = useMediaQuery(theme.breakpoints.down('md'))
 
+  const {selectedCategory, selectedKeyword ,searchQuery} = useSelector((state : RootState) => {
+        return state.news
+  })
+
+  const [filteredNews, setFilteredNews] = useState<newsResponse[] | []>([]);
+
+  const [getFilteredNews , {isLoading}] = useGetFilteredNewsMutation();
+
+  useEffect(() => {
+
+    const fetchNews = async() => {
+      const newsDetails = await getFilteredNews({category:selectedCategory, keyword : selectedKeyword as string}).unwrap();
+      const searchArticle = newsDetails.filter((news) => {
+        return news.heading.toLowerCase().includes(searchQuery.toLowerCase())
+      })
+      if(searchQuery && searchQuery.trim().length > 0){
+        
+        setFilteredNews(searchArticle);
+      }else{
+
+        setFilteredNews(newsDetails);
+      }
+    }
+
+    try{
+      fetchNews();
+    }catch(err){
+      console.log(err)
+    }
+
+  },[selectedCategory,selectedKeyword, getFilteredNews, searchQuery])
 
   return (
     <Container className='filtered'
@@ -33,10 +68,11 @@ const FilteredArticles = () => {
           marginTop: '60px',
           gap: 5
         }}>
-        {filteredArticles.length == 0 ?
+        {filteredNews.length == 0 ?
           <h1>No Article Available</h1>
-          : filteredArticles.map((article, index) => (
+          : filteredNews.map((article, index) => (
             <Box
+            key={index}
             sx={{
               display:'flex',
               flexDirection:'column',

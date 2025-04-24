@@ -8,7 +8,7 @@ import { selectSlot } from '../../../store/features/Booking/bookingSlice'
 const SelectedShow = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {selectedMovie} = useSelector((state: RootState) => state.movie)
+    const {selectedMovie,selectedOffset} = useSelector((state: RootState) => state.movie)
     const {
         movieName,
         movieId,
@@ -18,6 +18,7 @@ const SelectedShow = () => {
     } = useSelector((state: RootState) => state.slots);
 
     const today = new Date();
+    today.setDate(today.getDate() + selectedOffset);
     const month = today.toLocaleString('default', { month: 'long' });
     const day = today.toLocaleString('default', { weekday: 'long' });
     const date = today.getDate();

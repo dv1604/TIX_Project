@@ -27,6 +27,7 @@ const newsSlice = createSlice({
     reducers:{
         setCategory:(state,action: PayloadAction<'Spotlight'|"News"|"Video">) => {
             state.selectedCategory = action.payload;
+            state.selectedKeyword = null;
         },
         setKeyword:(state,action:PayloadAction<string|null>)=>{
             state.selectedKeyword = action.payload;

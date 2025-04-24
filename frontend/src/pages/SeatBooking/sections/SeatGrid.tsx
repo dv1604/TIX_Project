@@ -1,100 +1,96 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { slotsActions } from "../../../store/features/Slots/SlotsSlice";
 import useDragScroll from "../../../hooks/useDragScroll"; // Import custom hook
+import { useGetSeatsQuery } from "../../../store/features/Slots/SeatApi";
+import { RootState } from "../../../store/store";
+import { seatLayout } from "../../../utils/seatLayout";
+import { Seat } from "../../../types/Seats";
+import { setSeatId } from "../../../store/features/Payment/PaymentSlice";
 
-type Seat = {
-  id: string;
-  status: "available" | "sold" | "selected";
-};
-
-const rows = 8;
-const cols = 20;
 const soldOutSeats = new Set([
   "A9", "A10", "B3", "B4", "B8", "B9", "B10", "C4", "C5", "C8", "C9", "C10",
   "D7", "D8", "D9", "D10", "B11", "B12", "B13", "B14", "C11", "C12", "C13",
   "C14", "C15", "D11", "D12", "D13", "D14", "E11", "E12", "E13"
 ]);
 
-// Generate Seats
-const generateSeats = (): Seat[][] => {
-  return Array.from({ length: rows }, (_, rowIndex) =>
-    Array.from({ length: cols }, (_, colIndex) => {
-      const seatId = `${String.fromCharCode(65 + rowIndex)}${colIndex + 1}`;
-      return {
-        id: seatId,
-        status: soldOutSeats.has(seatId) ? "sold" : "available",
-      };
-    })
-  );
-};
 
 const SeatGrid: React.FC = () => {
-  const [seats, setSeats] = useState<Seat[][]>(generateSeats());
+
+  const {slotId ,selectedSeats : storedSeats} = useSelector((state:RootState) =>{
+    return state.slots
+  })
+
+  const {data} = useGetSeatsQuery(slotId);
+  const [seats, setSeats] = useState<Seat[][]>();
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
+
+  useEffect(() => {
+    // convert 160 seats into seat layout format
+    if(data){
+      const grid = seatLayout(data);
+      setSeats(grid);
+    }
+
+    if(storedSeats && selectedSeats.length === 0 && storedSeats?.length > 0){
+      setSelectedSeats(storedSeats);
+    }
+
+    setSeats((prevSeats) => {
+      return prevSeats?.map(row => {
+        return row.map((s) => {
+          if(selectedSeats.includes(s.label)){
+            return {...s,status : "Selected"} //change seat status
+          }else{
+            return {...s,status: s.status === "Booked" ? "Booked" : "Available"}; //keep status same
+          }
+        })
+      })
+    })
+  },[data,storedSeats,selectedSeats])
+
+  console.log(selectedSeats)
+
   const dispatch = useDispatch();
   const { containerRef, handleMouseDown, isDragging } = useDragScroll();
 
-  // Handle Seat Click
-  const handleSeatClick = (seatId: string) => {
+  const handleSeatClick = (clickedSeatId : string) => {
+
     setSelectedSeats((prevSelectedSeats) => {
-      const isSelected = prevSelectedSeats.includes(seatId);
-      let updatedSelection = [...prevSelectedSeats];
 
-      if (isSelected) {
-        // Deselect seat
-        updatedSelection = prevSelectedSeats.filter((s) => s !== seatId);
-        dispatch(slotsActions.decreaseTotalAmount());
-      } else {
-        if (prevSelectedSeats.length >= 5) {
-          // Remove first seat and add new one
-          const removedSeat = prevSelectedSeats[0];
-          updatedSelection = [...prevSelectedSeats.slice(1), seatId];
+      const isAlreadySelected = prevSelectedSeats.includes(clickedSeatId);
+      let updatedSeats = [...prevSelectedSeats];
 
-          dispatch(slotsActions.decreaseTotalAmount()); // Remove price of old seat
-          dispatch(slotsActions.increaseTotalAmount()); // Add price of new seat
+      // deselection
+      if(isAlreadySelected){
+        // if seat selected deselect
+        updatedSeats = updatedSeats.filter((seat) => seat !== clickedSeatId);
+        dispatch(slotsActions.decreaseTotalAmount()); //subtract ticket price
 
-          // Update seats to reflect removal
-          setSeats((prevSeats) =>
-            prevSeats.map((row) =>
-              row.map((seat) => {
-                if (seat.id === removedSeat) {
-                  return { ...seat, status: "available" }; // Old seat becomes available
-                }
-                if (seat.id === seatId) {
-                  return { ...seat, status: "selected" }; // New seat gets selected
-                }
-                return seat;
-              })
-            )
-          );
-        } else {
-          // Directly add new seat if < 5 selected
-          updatedSelection = [...prevSelectedSeats, seatId];
-          dispatch(slotsActions.increaseTotalAmount());
+      }else{ //if not selected then select it(limit 5)
+
+        if(updatedSeats.length >= 5){
+          // remove old one and add new one
+          updatedSeats = [...updatedSeats.slice(1),clickedSeatId];
+
+        }else{
+          // add new one
+          updatedSeats = [...updatedSeats,clickedSeatId];
+          dispatch(slotsActions.increaseTotalAmount()); //add ticket price
         }
       }
 
-      dispatch(slotsActions.setSelectedSeats(updatedSelection)); // Update Redux immediately
+      dispatch(slotsActions.setSelectedSeats(updatedSeats));
 
-      // Update seat colors correctly
-      setSeats((prevSeats) =>
-        prevSeats.map((row) =>
-          row.map((seat) => ({
-            ...seat,
-            status: updatedSelection.includes(seat.id)
-              ? "selected"
-              : soldOutSeats.has(seat.id)
-                ? "sold"
-                : "available",
-          }))
-        )
-      );
 
-      return updatedSelection;
-    });
-  };
+      return updatedSeats;
+
+    })
+
+
+  }
+
 
   return (
     <Box
@@ -122,7 +118,7 @@ const SeatGrid: React.FC = () => {
           width: { xs: "50%", lg: "100%" },
         }}
       >
-        {seats.map((row, rowIndex) => (
+        {seats?.map((row, rowIndex) => (
           <Box
             key={rowIndex}
             sx={{
@@ -143,28 +139,32 @@ const SeatGrid: React.FC = () => {
                     height: 45,
                     boxShadow: "none",
                     backgroundColor:
-                      seat.status === "sold"
+                      seat.status === "Booked"
                         ? "royalblue.main"
-                        : seat.status === "selected"
+                        : seat.status === "Selected"
                           ? "links.main"
                           : "primary.main",
-                    color: seat.status === "available" ? "grey.800" : "primary.main",
+                    color: seat.status === "Available" ? "grey.800" : "primary.main",
                     fontWeight: 700,
                     border: "1px solid #ccc",
-                    cursor: seat.status === "sold" ? "not-allowed" : "pointer",
+                    cursor: seat.status === "Booked" ? "not-allowed" : "pointer",
                     "&:hover": {
                       backgroundColor:
-                        seat.status === "selected"
+                        seat.status === "Selected"
                           ? "links.main"
                           : "royalblue.main",
                       color: "#fff",
                     },
                   }}
                   onClick={() => {
-                    if (seat.status !== "sold") handleSeatClick(seat.id);
+                    console.log("clicked")
+                    if (seat.status !== "Booked"){
+                       handleSeatClick(seat.label);
+                       dispatch(setSeatId(seat.id));
+                      }
                   }}
                 >
-                  {seat.id}
+                  {seat.label}
                 </Button>
               ))}
             </Box>
@@ -180,28 +180,31 @@ const SeatGrid: React.FC = () => {
                     height: 45,
                     boxShadow: "none",
                     backgroundColor:
-                      seat.status === "sold"
+                      seat.status === "Booked"
                         ? "royalblue.main"
-                        : seat.status === "selected"
+                        : seat.status === "Selected"
                           ? "links.main"
                           : "primary.main",
-                    color: seat.status === "available" ? "grey.800" : "primary.main",
+                    color: seat.status === "Available" ? "grey.800" : "primary.main",
                     fontWeight: 700,
                     border: "1px solid #ccc",
-                    cursor: seat.status === "sold" ? "not-allowed" : "pointer",
+                    cursor: seat.status === "Booked" ? "not-allowed" : "pointer",
                     "&:hover": {
                       backgroundColor:
-                        seat.status === "selected"
+                        seat.status === "Selected"
                           ? "links.main"
                           : "royalblue.main",
                       color: "#fff",
                     },
                   }}
                   onClick={() => {
-                    if (seat.status !== "sold") handleSeatClick(seat.id);
+                    if (seat.status !== "Booked") {
+                      handleSeatClick(seat.label);
+                      dispatch(setSeatId(seat.id));
+                    }
                   }}
                 >
-                  {seat.id}
+                  {seat.label}
                 </Button>
               ))}
             </Box>

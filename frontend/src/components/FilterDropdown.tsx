@@ -25,18 +25,22 @@ const FilterDropdown: React.FC<{
                 value={value}
                 onChange={handleChange}
                 displayEmpty
-                renderValue={(selected) => (isFirstLoad ? placeholder : selected)}
+                renderValue={(selected) => {
+                    if (!selected || selected === '') return placeholder;
+                    return selected;
+                }}
                 IconComponent={ArrowDropDown}
                 sx={{
                     ".MuiOutlinedInput-notchedOutline": { border: "none" },
                     "&:hover .MuiOutlinedInput-notchedOutline": { border: "none" },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": { border: "none" },
-                    textShadow:'1px 1px 8px rgba(0,0,0,0.3)'
+                    textShadow: '1px 1px 8px rgba(0,0,0,0.3)'
                 }}
                 MenuProps={{
                     anchorOrigin: { vertical: 'top', horizontal: 'center' },
                     PaperProps: {
-                        sx: {
+                        sx: { 
+                            maxHeight : 48 * 4.5, 
                             boxShadow: '2px 2px 5px rgba(0,0,0,0.1)',
                             width: '200px',
 

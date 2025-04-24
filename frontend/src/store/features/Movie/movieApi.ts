@@ -24,7 +24,7 @@ export const movieApi = createApi({
 
         getAllMovie: builder.query<movieData[], void>({
             query: () => ({
-                url: "/movies",
+                url: "/api/movies",
                 method: "GET"
             })
         }),
@@ -39,7 +39,7 @@ export const movieApi = createApi({
                 if (screenName) params.append("screenName", screenName);
 
                 return {
-                    url: `/movies/${movieId}?${params.toString()}`,
+                    url: `/api/movies/${movieId}?${params.toString()}`,
                     method: "GET"
                 };
             }
@@ -47,10 +47,14 @@ export const movieApi = createApi({
 
         filterOptions: builder.query<{ screenNames: string[], chains: string[], cities: string[] }, void>({
             query: () => ({
-                url: "/filters/options",
+                url: "/api/filters/options",
                 method: "GET"
             })
-        })
+        }),
+
+        
+
+
 
 
     })

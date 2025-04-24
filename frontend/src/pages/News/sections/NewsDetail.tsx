@@ -5,13 +5,15 @@ import { RootState } from '../../../store/store';
 import { Box, Container, Icon, Stack, Typography } from '@mui/material';
 import { Facebook, Instagram, Recommend, Twitter } from '@mui/icons-material';
 import RecommendNews from '../../../components/RecommendNews';
+import { useGetNewsByIdQuery } from '../../../store/features/News/newsApi';
 
 const NewsDetail = () => {
 
     const { id } = useParams();
-    const article = useSelector((state: RootState) => (
-        state.news.articles.find((article) => article.id === Number(id))
-    ))
+    
+    const {data,isLoading} = useGetNewsByIdQuery({newsId :Number(id)});
+    
+    const article = data
 
     if (!article) {
         return <h1>Article not found</h1>
@@ -50,7 +52,7 @@ const NewsDetail = () => {
                             fontWeight: 'bold',
                             color: 'secondary.main'
                         }}>
-                        {article.title}
+                        {article.heading}
                     </Typography>
                     <Typography
                         variant='body2'

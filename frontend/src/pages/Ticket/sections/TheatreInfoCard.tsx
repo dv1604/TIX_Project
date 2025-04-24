@@ -35,7 +35,12 @@ const TheatreInfoCard = () => {
         return state.slots
     })
 
+    const {selectedOffset} = useSelector((state : RootState) => {
+        return state.movie
+    })
+
     const today = new Date();
+    today.setDate(today.getDate() + selectedOffset);
     const formattedDate = today.toLocaleString('en-IN', {
         weekday: 'long',
         month: 'long',

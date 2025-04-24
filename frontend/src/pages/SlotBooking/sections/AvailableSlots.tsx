@@ -1,15 +1,18 @@
 import { Stars } from "@mui/icons-material";
 import { Box, Container, Typography, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { slotsActions } from "../../../store/features/Slots/SlotsSlice";
 import { filteredTheatres } from "../../../store/features/Movie/MovieSelectors";
 import { SlotResponse } from "../../../types/movieResponse";
+import { movieActions } from "../../../store/features/Movie/MovieSlice";
+import { setPaymentDetails } from "../../../store/features/Payment/PaymentSlice";
 
 interface ShowDetails {
   movieName: string;
   movieId: number;
+  slotId: number;
   theatreName: string;
   city: string;
   slots: SlotResponse[];
@@ -21,7 +24,8 @@ interface ShowDetails {
 const AvailableSlots = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { selectedMovie, selectedCity, movieDetails,selectedChain,selectedStudio } = useSelector((state: RootState) => state.movie);
+  const { selectedMovie, selectedCity, movieDetails, selectedChain, selectedStudio, selectedOffset } = useSelector((state: RootState) => state.movie);
+  const [showResetMessage, setShowResetMessage] = useState(false);
 
   // Initialize state before any early returns
   const [selectedSlot, setSelectedSlot] = useState<number>();
@@ -33,24 +37,36 @@ const AvailableSlots = () => {
 
   console.log(availableSlots);
 
+  useEffect(() => {
+
+    if (movieDetails && movieDetails?.days.length === 0) {
+      const timeout = setTimeout(() => {
+        dispatch(movieActions.resetFilters());
+      }, 1500)
+
+      return () => clearTimeout(timeout);
+    }
+
+  }, [movieDetails, dispatch])
 
   if (movieDetails?.days.length === 0) {
     return (
       <Typography variant="h6" color="error">
         {`Sorry, no showtimes are available in ${selectedCity} for "${selectedStudio}" screens${selectedChain ? ` under the "${selectedChain}" theatre chain` : ""}.`}
-
+        <br />
+        Showing all available showtimes instead.
       </Typography>
+
     );
   }
 
   const chainColor = (chainName: string) => {
-    switch (chainName) {
-      case "CGV":
-        return theme.palette.cgv.main;
-      case "Cinepolis":
-        return theme.palette.cinepolis.main;
-      default:
-        return theme.customGradients.primary;
+    if (["CGV", "Cinemax", "Valentine"].includes(chainName)) {
+      return theme.palette.cgv.main;
+    } else if (["Cinepolis", "INOX", "Carnival"].includes(chainName)) {
+      return theme.palette.cinepolis.main;
+    } else {
+      return theme.customGradients.primary;
     }
   };
 
@@ -62,6 +78,7 @@ const AvailableSlots = () => {
       slotsActions.setSelectedShow({
         movieName: obj.movieName,
         movieId: obj.movieId,
+        slotId: obj.slotId,
         theatreName: obj.theatreName,
         city: obj.city,
         slots: obj.slots.map(slot => slot.time),
@@ -174,10 +191,12 @@ const AvailableSlots = () => {
                   {screen.slots.map((slot, slotIndex) => (
                     <Box
                       key={slotIndex}
-                      onClick={() =>
+                      onClick={() => {
+
                         sendSelectedShow({
-                          movieName: selectedMovie.name,
-                          movieId: selectedMovie.id,
+                          movieName: movieDetails?.title as string,
+                          movieId: movieDetails?.id as number,
+                          slotId: slot.id,
                           theatreName: theatre.name,
                           city: selectedCity as string,
                           theatreType: screen.name,
@@ -185,6 +204,15 @@ const AvailableSlots = () => {
                           selectedTime: slot,
                           ticketPrice: screen.price,
                         })
+
+                        dispatch(setPaymentDetails({
+                          movieId: movieDetails?.id as number,
+                          slotId: slot.id,
+                          theatreId: theatre.id,
+                          screenId: screen.id
+                        }))
+                      }
+
                       }
                       sx={{
                         width: 77,

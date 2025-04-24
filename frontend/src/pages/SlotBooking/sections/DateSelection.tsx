@@ -9,6 +9,7 @@ import { generateUpcomingDates } from '../../../utils/DateFormat';
 import { useDispatch, useSelector } from 'react-redux';
 import { movieActions } from '../../../store/features/Movie/MovieSlice';
 import { RootState } from '../../../store/store';
+import { setDayOffset } from '../../../store/features/Payment/PaymentSlice';
 
 const DateSelection = () => {
 
@@ -126,7 +127,10 @@ const DateSelection = () => {
                                             }
 
                                         }}
-                                        onClick={() => dispatch(movieActions.setOffset(index))}
+                                        onClick={() => {
+                                            dispatch(movieActions.setOffset(index))
+                                            dispatch(setDayOffset(index))     
+                                        }}
                                         disabled={isDisabled}
                                     >
                                         <Box

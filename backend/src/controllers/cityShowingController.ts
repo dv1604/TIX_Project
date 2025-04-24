@@ -47,6 +47,7 @@ export const cityShowingData = async (req: Request, res: Response) => {
         }
 
         const response: MovieResponse = {
+            id : movie.id,
             title: movie.title,
             genre: movie.genre,
             duration: movie.duration,
@@ -79,6 +80,7 @@ export const cityShowingData = async (req: Request, res: Response) => {
                 if (!groupByDay[day.dayOffset]) {
 
                     groupByDay[day.dayOffset] = {
+                        id : day.id,
                         dayOffset: day.dayOffset,
                         cities: []
                     };
@@ -90,6 +92,7 @@ export const cityShowingData = async (req: Request, res: Response) => {
                 if (!cityEntry) {
                     cityEntry = {
 
+                        id : city.id,
                         name: city.name,
                         theatres: []
                     };
@@ -101,6 +104,7 @@ export const cityShowingData = async (req: Request, res: Response) => {
 
                 if (!theatreEntry) {
                     theatreEntry = {
+                        id : theatre.id,
                         name: theatre.name,
                         location: theatre.location,
                         chain: theatre.chain,
@@ -112,6 +116,7 @@ export const cityShowingData = async (req: Request, res: Response) => {
                 for (const screen of filteredScreens) {
 
                     theatreEntry.screens.push({
+                        id : screen.id,
                         name: screen.name,
                         price: screen.price,
                         slots: screen.slots.map(slot => ({

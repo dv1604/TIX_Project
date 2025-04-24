@@ -6,61 +6,37 @@ import movie4 from '../../../assests/avengers.png'
 import { Box } from '@mui/material';
 import MovieTransaction from '../MovieTransaction';
 import ASSESTS from '../../../assests';
+import { useGetBookingHistoryQuery } from '../../../store/features/Booking/bookingApi';
 
 const TransactionList = () => {
 
-    const activeTickets = [{
-        title:'spiderman:no way home',
-        img:ASSESTS.images.spiderman,
-        day:'Thursday, December 16, 2021, 14:40',
-        venue:'Grand Indonesia CGV',
-        screen:'Regular 2D',
-        status:'successful'
-    },
-    {
-        title:'tenet',
-        img:ASSESTS.images.tenet,
-        day:'Thursday, December 16, 2021, 14:40',
-        venue:'Grand Indonesia CGV',
-        screen:'Regular 2D',
-        status:'successful'
-    },
-    {
-        title:'tenet',
-        img:ASSESTS.images.tenet,
-        day:'Thursday, December 16, 2021, 14:40',
-        venue:'Grand Indonesia CGV',
-        screen:'Regular 2D',
-        status:'Failed'
-    },
-    {
-        title:'john wick: chapter 3 - parabellum',
-        img:ASSESTS.images.john_wick,
-        day:'Thursday, December 16, 2021, 14:40',
-        venue:'Grand Indonesia CGV',
-        screen:'Regular 2D',
-        status:'successful'
-    },
-    {
-        title:'avengers: endgame',
-        img:ASSESTS.images.avengers,
-        day:'Thursday, December 16, 2021, 14:40',
-        venue:'Grand Indonesia CGV',
-        screen:'Regular 2D',
-        status:'successful'
-    },]
+    const {data,isLoading} = useGetBookingHistoryQuery();
 
+    console.log(data);
+
+    const allTickets = data?.map((booking)=>{
+        return {
+            title: booking.movieTitle,
+            img: booking.moviePoster,
+            day: `${booking.bookingDay}, ${booking.bookingDate}, ${booking.bookingYear}, ${booking.slotTime}`,
+            venue: booking.theatreName,
+            screen: booking.screenName,
+            status: booking.paymmentStatus
+        }
+    })
+    
+   
   return (
     <Box sx={{
         display:'flex',
         flexDirection:'column',
         gap:'24px'
     }}>
-        {activeTickets.map((movie,index) => (
+        {allTickets?.map((movie,index) => (
             <MovieTransaction 
             key={index} 
             movies={movie}
-            isLast={index === activeTickets.length-1}/>
+            isLast={index === allTickets.length-1}/>
         ))}
     </Box>
   )

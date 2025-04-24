@@ -1,8 +1,9 @@
 import { Box, Button, Container, Typography } from '@mui/material'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store/store'
 import { useNavigate } from 'react-router'
+import { useCreateCheckoutSessionMutation } from '../../../store/features/Payment/paymentApi'
 
 const TransactionCard = () => {
 
@@ -10,12 +11,43 @@ const TransactionCard = () => {
         return state.slots
     })
 
+    const {userId,movieId,dayOffset,theatreId,screenId,slotId,seatIds,totalAmount} = useSelector((state : RootState) => {
+        return state.payment
+    })
+
+    const [ createCheckoutSession , {isLoading}]  = useCreateCheckoutSessionMutation();
+
     const numberOfTickets = Number(selectedSeats?.length);
 
     const totalPayment = (ticketPrice * numberOfTickets) + (150 * numberOfTickets) - (200);
 
+    
     const navigate = useNavigate()
+    const dispatch = useDispatch();
 
+    const handleBuyNow = async() => {
+
+        try{
+
+            const stripeUrl = await createCheckoutSession({
+                userId,
+                movieId,
+                theatreId,
+                screenId,
+                slotId,
+                seatIds,
+                dayOffset,
+                totalAmount
+            }).unwrap() as {url: string};
+
+            window.location.replace(stripeUrl.url as string);
+
+        }catch(err){
+            console.log("STRIPE ERROR : ", err)
+        }
+
+
+    }
   return (
     <Container
     disableGutters
@@ -161,7 +193,8 @@ const TransactionCard = () => {
                 color:'rgba(255, 190, 0, 1)',
                 padding:'9px 12px'
             }}
-            onClick={()=> navigate('/payment-confirmation')}>
+            onClick={handleBuyNow}
+            >
                 buy now
             </Button>
     </Container>

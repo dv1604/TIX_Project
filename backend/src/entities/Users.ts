@@ -1,7 +1,8 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { IsEmail, IsNotEmpty, Length, Matches, MinLength, minLength } from 'class-validator';
 import {randomBytes} from 'crypto';
 import { genSalt, hash } from 'bcrypt';
+import { Booking } from "./Booking";
 
 @Entity()
 export class Users{
@@ -22,6 +23,9 @@ export class Users{
     @Column()
     @MinLength(6,{message : 'Password should be of atleast 6 character'})
     password : string
+
+    @OneToMany(() => Booking , (booking) => booking.user)
+    bookings : Booking[]
 
     @BeforeInsert()
     async generateAndHashPassword(){

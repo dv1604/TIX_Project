@@ -134,22 +134,31 @@ export const logout = async (req: Request, res: Response) => {
 export const requireAuth = (req: Request, res: Response) => {
 try{
     const token = req.cookies?.jwt;
-    console.log(token)
+    // console.log(token)
 
     if(!token){
         res.json({isAuthenticated : false});
         return;
     }
 
-    jwt.verify(token, process.env.SECRET_KEY as string, (err: unknown , decoded : unknown)=>{
-        // console.log(decoded);
+    jwt.verify(token, process.env.SECRET_KEY as string, async(err: unknown , decoded : any)=>{
+        console.log(decoded.email)
         if(err){
 
             res.json({isAuthenticated :  false});
             return;
         }
 
-        res.json({isAuthenticated: true})
+        const user = await userRepo.findOneBy({email : decoded.email})
+        
+        if (!user) {
+            res.json({ isAuthenticated: false });
+            return;
+        }
+
+        console.log(user.id)
+
+        res.json({isAuthenticated: true, id : user.id})
     })}catch(err){
         console.log(err)
         res.status(500).json({error:err})

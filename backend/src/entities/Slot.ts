@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Screens } from "./Screens";
 import { Seats } from "./Seats";
+import { Booking } from "./Booking";
 
 @Entity()
 export class Slot{
@@ -17,5 +18,8 @@ export class Slot{
 
     @OneToMany(()=>Seats ,(seat) => seat.slot)
     seats : Seats[];
+
+    @OneToMany(() => Booking ,(booking) => booking.slot)
+    bookings : Booking[]
 
 }

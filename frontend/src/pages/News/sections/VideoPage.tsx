@@ -5,13 +5,13 @@ import { RootState } from '../../../store/store';
 import { Box, Container, Icon, Stack, Typography, Button } from '@mui/material';
 import { Facebook, Instagram, PlayCircleFilledOutlined, Twitter } from '@mui/icons-material';
 import RecommendNews from '../../../components/RecommendNews';
+import { useGetNewsByIdQuery } from '../../../store/features/News/newsApi';
 
 const VideoPage = () => {
   const { id } = useParams();
-  const article = useSelector((state: RootState) =>
-    state.news.articles.find((article) => article.id === Number(id))
-  );
-
+  const {data,isLoading} = useGetNewsByIdQuery({newsId :Number(id)});
+      
+  const article = data
   const [isPlaying, setIsPlaying] = useState(false);
 
   if (!article) {
@@ -57,7 +57,7 @@ const VideoPage = () => {
               color: 'secondary.main',
             }}
           >
-            {article.title}
+            {article.heading}
           </Typography>
           <Typography
             variant="body2"
