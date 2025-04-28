@@ -61,19 +61,19 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
             screen,
             slot,
             seats,
-            bookingDate: `${bookedDate.date} ${bookedDate.month}`,
-            bookingDay: bookedDate.day,
-            bookingYear: bookedDate.year,
-            movieTitle: movie.title,
-            moviePoster: movie.image,
-            theatreName: theatre.name,
-            theatreLocation: theatre.location,
-            theatreChain: theatre.chain,
-            screenName: screen.name,
-            slotTime: slot.time,
-            ticketPrice: screen.price,
-            totalAmount,
-            paymmentStatus: PaymentStatus.PENDING
+            booking_date: `${bookedDate.date} ${bookedDate.month}`,
+            booking_day: bookedDate.day,
+            booking_year: bookedDate.year,
+            movie_title: movie.title,
+            movie_poster: movie.image,
+            theatre_name: theatre.name,
+            theatre_location: theatre.location,
+            theatre_chain: theatre.chain,
+            screen_name: screen.name,
+            slot_time: slot.time,
+            ticket_price: screen.price,
+            total_amount : totalAmount,
+            payment_status: PaymentStatus.PENDING
         });
 
         await bookingRepo.save(booking);
@@ -136,7 +136,7 @@ export const getBookingStatus = async(req : Request, res : Response) => {
         return;
     }
 
-    const status = bookingFound.paymmentStatus;
+    const status = bookingFound.payment_status;
 
     res.status(200).json({status});
     return;
@@ -148,7 +148,10 @@ export const getAllBookings = async(req : Request , res : Response) => {
     try{
 
         const bookings = await bookingRepo.find({
-            where:{ paymmentStatus : Not(PaymentStatus.PENDING)}
+            where:{ payment_status : Not(PaymentStatus.PENDING)},
+            order : {
+                createdAt : 'DESC'
+            }
         });
 
         res.status(200).json(bookings);

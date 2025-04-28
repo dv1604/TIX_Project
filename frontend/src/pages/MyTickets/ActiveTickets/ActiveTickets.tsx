@@ -13,15 +13,15 @@ const ActiveTickets = () => {
     today.setHours(0, 0, 0, 0); // normalize to midnight
 
     const allactiveTickets = data?.map((booking) => {
-        const bookingDate = new Date(`${booking.bookingDate}, ${booking.bookingYear}`);
+        const bookingDate = new Date(`${booking.booking_date}, ${booking.booking_year}`);
 
         return {
-            title: booking.movieTitle,
-            img: booking.moviePoster,
-            day: `${booking.bookingDay}, ${booking.bookingDate}, ${booking.bookingYear}, ${booking.slotTime}`,
-            venue: booking.theatreName,
-            screen: booking.screenName,
-            status: booking.paymmentStatus,
+            title: booking.movie_title,
+            img: booking.movie_poster,
+            day: `${booking.booking_day}, ${booking.booking_date}, ${booking.booking_year}, ${booking.slot_time}`,
+            venue: booking.theatre_location,
+            screen: booking.screen_name,
+            status: booking.payment_status,
             date: bookingDate
         };
     });

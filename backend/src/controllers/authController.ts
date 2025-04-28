@@ -49,15 +49,15 @@ const handleErrors = (err: unknown) => {
 }
 
 // creating json web token
-const age = 6 * 60 *60; //6hrs in ms
-const createToken = (email : string) => {
+const age = 6 * 60 * 60; //6hrs in ms
+const createToken = (email: string) => {
 
-    return jwt.sign({email}, process.env.SECRET_KEY  as string, {
-        expiresIn : age
+    return jwt.sign({ email }, process.env.SECRET_KEY as string, {
+        expiresIn: age
     })
 
 }
- 
+
 
 export const signup = async (req: Request, res: Response) => {
 
@@ -80,9 +80,9 @@ export const signup = async (req: Request, res: Response) => {
 
         await userRepo.save(newUser);
         const token = createToken(email);
-        res.cookie('jwt',token,{
-            httpOnly : true ,
-            maxAge : 1000 * age
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            maxAge: 1000 * age
         });
         res.status(201).send('New User Created');
     } catch (err) {
@@ -100,27 +100,27 @@ export const login = async (req: Request, res: Response) => {
 
         if (!userFound) {
 
-            res.status(400).json({error : 'No User Found'});
+            res.status(400).json({ error: 'No User Found' });
             return;
-            
+
         }
 
         const passwordCheck = await compare(password, userFound.password);
         if (!passwordCheck) {
-            res.status(400).json({error : 'Incorrect Password'});
+            res.status(400).json({ error: 'Incorrect Password' });
             return;
         }
-        
+
         const token = createToken(userFound.email);
-        res.cookie('jwt',token,{
-            httpOnly : true ,
-            maxAge : 1000 * age
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            maxAge: 1000 * age
         });
-        res.json({message:'Login Succesfully',name:userFound.name});
+        res.json({ message: 'Login Succesfully', name: userFound.name });
         return;
 
     } catch (err) {
-        res.status(500).json({error : "Internal Server Error"})
+        res.status(500).json({ error: "Internal Server Error" })
     }
 
 
@@ -132,35 +132,36 @@ export const logout = async (req: Request, res: Response) => {
 };
 
 export const requireAuth = (req: Request, res: Response) => {
-try{
-    const token = req.cookies?.jwt;
-    // console.log(token)
+    try {
+        const token = req.cookies?.jwt;
+        // console.log(token)
 
-    if(!token){
-        res.json({isAuthenticated : false});
-        return;
-    }
-
-    jwt.verify(token, process.env.SECRET_KEY as string, async(err: unknown , decoded : any)=>{
-        console.log(decoded.email)
-        if(err){
-
-            res.json({isAuthenticated :  false});
-            return;
-        }
-
-        const user = await userRepo.findOneBy({email : decoded.email})
-        
-        if (!user) {
+        if (!token) {
             res.json({ isAuthenticated: false });
             return;
         }
 
-        console.log(user.id)
+        jwt.verify(token, process.env.SECRET_KEY as string, async (err: unknown, decoded: any) => {
+            console.log(decoded.email)
+            if (err) {
 
-        res.json({isAuthenticated: true, id : user.id})
-    })}catch(err){
+                res.json({ isAuthenticated: false });
+                return;
+            }
+
+            const user = await userRepo.findOneBy({ email: decoded.email })
+
+            if (!user) {
+                res.json({ isAuthenticated: false });
+                return;
+            }
+
+            console.log(user.id)
+
+            res.json({ isAuthenticated: true, id: user.id })
+        })
+    } catch (err) {
         console.log(err)
-        res.status(500).json({error:err})
+        res.status(500).json({ error: err })
     }
 }

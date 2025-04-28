@@ -4,8 +4,16 @@ import { Box, Container, Typography } from '@mui/material'
 import Selection from './sections/Selection'
 import SeatGrid from './sections/SeatGrid'
 import SeatInfo from './sections/SeatInfo'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store/store'
+import { stat } from 'fs'
 
 const SeatBooking = () => {
+
+  const {selectedSeats} = useSelector((state : RootState) => {
+    return state.slots
+  })
+
   return (
     <Container
       disableGutters
@@ -65,7 +73,7 @@ const SeatBooking = () => {
           mt:8,
           padding: {xs:'0px 80px',md:'0px 190px'},
         }}>
-          <SeatInfo/>
+          {selectedSeats &&  selectedSeats?.length>0 && <SeatInfo/>}
       </Container>
     </Container>
 

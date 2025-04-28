@@ -18,66 +18,66 @@ export class Booking{
     id : string
 
     @ManyToOne(() => Users , (user) => user.bookings)
-    @JoinColumn({name : " userId"})
+    @JoinColumn({name : " user_id"})
     user : Users
 
     @ManyToOne(() => Movies, (movies) => movies.bookings)
-    @JoinColumn({name : "movieId"})
+    @JoinColumn({name : "movie_id"})
     movie : Movies
 
     @ManyToOne(() => Theatre , (theatre) => theatre.bookings)
-    @JoinColumn({name : "theatreId"})
+    @JoinColumn({name : "theatre_id"})
     theatre : Theatre
 
     @ManyToOne(() => Screens , (screen) => screen.bookings)
-    @JoinColumn({name : "screenId"})
+    @JoinColumn({name : "screen_id"})
     screen : Screens
 
     @ManyToOne(() => Slot, (slot) => slot.bookings)
-    @JoinColumn({name : "slotId"})
+    @JoinColumn({name : "slot_id"})
     slot : Slot
 
     @OneToMany(() => Seats , (seat) => seat.booking)
     seats : Seats[]
 
     @Column()
-    bookingDate : string
+    booking_date : string
 
     @Column()
-    bookingDay : string
+    booking_day : string
 
     @Column()
-    bookingYear : number
+    booking_year : number
 
     @Column()
-    movieTitle : string
+    movie_title : string
 
     @Column()
-    moviePoster : string
+    movie_poster : string
 
     @Column()
-    theatreName : string
+    theatre_name : string
 
     @Column()
-    theatreLocation : string
+    theatre_location : string
 
     @Column()
-    theatreChain : string
+    theatre_chain : string
 
     @Column()
-    screenName : string
+    screen_name : string
 
     @Column()
-    slotTime : string
+    slot_time : string
 
     @Column()
-    ticketPrice : number
+    ticket_price : number
 
     @Column()
-    totalAmount : number
+    total_amount : number
 
     @Column({type : 'enum' , enum : PaymentStatus , default : PaymentStatus.PENDING})
-    paymmentStatus : PaymentStatus;
+    payment_status : PaymentStatus;
 
     @Column({nullable : true})
     transactionId : string

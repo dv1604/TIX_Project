@@ -62,7 +62,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
 
     if (event.type === "checkout.session.completed") {
 
-        booking.paymmentStatus = PaymentStatus.SUCCESS;
+        booking.payment_status = PaymentStatus.SUCCESS;
         booking.transactionId = session.payment_intent as string;
 
         if (booking.seats && booking.seats.length > 0) {
@@ -92,7 +92,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
             return;
         }
 
-        booking.paymmentStatus = PaymentStatus.FAILED;
+        booking.payment_status = PaymentStatus.FAILED;
         booking.transactionId = intent.id;
 
         await bookingRepo.save(booking);
@@ -102,7 +102,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     }
     else if (eventType === "checkout.session.expired") {
 
-        booking.paymmentStatus = PaymentStatus.FAILED;
+        booking.payment_status = PaymentStatus.FAILED;
         booking.transactionId = session.payment_intent as string;
         await bookingRepo.save(booking);
         console.log("Payment expired. Booking marked as failed")
