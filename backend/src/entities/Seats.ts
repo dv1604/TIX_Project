@@ -20,11 +20,11 @@ export class Seats{
     status : string;
 
     @ManyToOne(() => Slot , (slot)=> slot.seats)
-    @JoinColumn({name : "slotId"})
+    @JoinColumn({name : "slot_id"})
     slot : Slot;
 
     @ManyToOne(() => Booking , (booking) => booking.seats)
-    @JoinColumn({name: "bookingId"})
+    @JoinColumn({name: "booking_id"})
     booking : Booking
 
 } 

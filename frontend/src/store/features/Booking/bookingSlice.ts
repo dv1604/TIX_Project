@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Booking State Interface
 interface BookingState {
+  bookingId :string | null;
   isSlotSelected: boolean;
   isSeatSelected: boolean;
   isPaymentDone: boolean;
@@ -9,6 +10,7 @@ interface BookingState {
 
 // Initial State
 const initialState: BookingState = {
+  bookingId : null,
   isSlotSelected: false,
   isSeatSelected: false,
   isPaymentDone: false,

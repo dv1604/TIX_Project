@@ -15,6 +15,7 @@ import bookingApiReducer,{ bookingApi } from "./features/Booking/bookingApi";
 import paymentApiReducer,{ paymentApi } from "./features/Payment/paymentApi";
 import newsApiReducer,{ newsApi } from "./features/News/newsApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { rtkMiddleware } from "./middleware/rtkMiddleware";
 
 // Persist Configurations
 const persistConfig = {
@@ -48,7 +49,14 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(authApi.middleware, movieApi.middleware, seatApi.middleware , paymentApi.middleware, bookingApi.middleware, newsApi.middleware),
+    }).concat(
+      authApi.middleware, 
+      movieApi.middleware, 
+      seatApi.middleware , 
+      paymentApi.middleware, 
+      bookingApi.middleware, 
+      newsApi.middleware,
+      rtkMiddleware ),
 });
 
 setupListeners(store.dispatch);

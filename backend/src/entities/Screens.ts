@@ -17,7 +17,7 @@ export class Screens{
     price : number
 
     @ManyToOne(() => CityShowing , (cityShowing) => cityShowing.screens)
-    @JoinColumn({name : "cityShowingId"})
+    @JoinColumn({name : "cityShowing_id"})
     cityShowing : CityShowing
 
     @OneToMany(() => Slot , (slot) =>  slot.screen)

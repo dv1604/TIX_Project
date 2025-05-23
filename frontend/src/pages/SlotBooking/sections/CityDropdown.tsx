@@ -13,6 +13,7 @@ const CityDropdown = () => {
   const handlechange = (event : SelectChangeEvent<string>) => {
     const value = event.target.value as string;
     dispatch(movieActions.setCity(value ?? selectedCity));
+    dispatch(movieActions.resetFilters())
     setOpen(false)
   }
 

@@ -11,6 +11,7 @@ interface PaymentState {
     seatIds: number[];
     dayOffset: number;
     totalAmount: number;
+    bookingId: string | null;
 
 }
 
@@ -23,7 +24,8 @@ const initialState: PaymentState = {
     slotId: 0,
     seatIds: [],
     dayOffset: 0,
-    totalAmount: 0
+    totalAmount: 0,
+    bookingId: null
 
 }
 
@@ -60,6 +62,10 @@ export const PaymentSlice = createSlice({
         setTotalAmount: (state, action: PayloadAction<number>) => {
             state.totalAmount = action.payload;
         },
+
+        setBookingId: (state, action: PayloadAction<string>) => {
+            state.bookingId = action.payload
+        },
         resetPaymentDetails: (state) => {
             const userId = state.userId; // Keep current userId
             return {
@@ -71,5 +77,5 @@ export const PaymentSlice = createSlice({
 
 })
 
-export const { setPaymentDetails, resetPaymentDetails, setSeatId, setUserId, setDayOffset, setTotalAmount } = PaymentSlice.actions;
+export const { setPaymentDetails, resetPaymentDetails, setSeatId, setUserId, setDayOffset, setTotalAmount , setBookingId} = PaymentSlice.actions;
 export default PaymentSlice.reducer;

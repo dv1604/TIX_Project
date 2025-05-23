@@ -17,7 +17,7 @@ export const addMovie= async(req : Request , res : Response) => {
     }
 
     if(!req.files || !req.files.image){
-        res.status(400).json({error:"Image is required"});
+        res.status(400).json({message:"Image is required"});
         return;
     }
 
@@ -45,7 +45,7 @@ export const addMovie= async(req : Request , res : Response) => {
         const userFound = await movieRepo.findOneBy({title});
 
         if(userFound){
-            res.status(400).json({error:"Movie Already exists"});
+            res.status(400).json({message:"Movie Already exists"});
             return;
         }
 
@@ -58,7 +58,7 @@ export const addMovie= async(req : Request , res : Response) => {
         //     res.status(400).json({error:"Movie already exists"});
         //     return;
         // }
-        res.status(400).json({error:"Error creating Movie"});
+        res.status(400).json({message:"Error creating Movie"});
         return;
     }
 
@@ -73,7 +73,7 @@ export const getAllMovies = async(req:Request , res : Response) => {
     return;
 
   }catch(err){
-    res.status(400).json({error: "Error fetching movies"});
+    res.status(400).json({message: "Error fetching movies"});
     return;
   }
 

@@ -105,11 +105,11 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
                     quantity: 1
                 }
             ],
-            success_url: `${process.env.CLIENT_URL}/payment-confirmation`,
+            success_url: `${process.env.CLIENT_URL}/payment-confirmation?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.CLIENT_URL}/my-tickets/transaction-list`
         });
 
-        res.status(200).json({ url: session.url });
+        res.status(200).json({ url: session.url , bookingId : booking.id});
 
     } catch (err) {
 
@@ -160,7 +160,7 @@ export const getAllBookings = async(req : Request , res : Response) => {
     }catch(err){
 
         res.status(500).json({
-            messae : "Error fetchingBookings"
+            message : "Error fetching Bookings"
         })
         return;
     }

@@ -55,7 +55,7 @@ const EmailInput = () => {
 
             const response = await SignUp({name,phoneNumber,email,password}).unwrap();
             console.log("SignUp Response",response);
-            navigate(redirectPath);
+            navigate('/');
 
         }catch(err){
 

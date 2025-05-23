@@ -44,7 +44,7 @@ useEffect(() => {
       const response = await login({phoneNumber,password}).unwrap() as {name:string};
       dispatch(setLoginName(response.name));
       console.log("Login Response:" , response);
-      navigate(redirectPath);
+      navigate('/');
     }catch(err){
       console.log("Login Response:",err);
     }

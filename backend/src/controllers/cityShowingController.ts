@@ -33,7 +33,7 @@ export const cityShowingData = async (req: Request, res: Response) => {
             order: {
                 cityShowings: {
                     day: {
-                        dayOffset: "ASC"
+                        day_offset: "ASC"
                     }
                 }
             }
@@ -61,7 +61,7 @@ export const cityShowingData = async (req: Request, res: Response) => {
 
         movie.cityShowings.filter(showing => {
             const matchCity = cityParam ? showing.city.name === cityParam : true;
-            const matchDay = dayOffset !== null ? showing.day.dayOffset === dayOffset : true;
+            const matchDay = dayOffset !== null ? showing.day.day_offset === dayOffset : true;
             return matchCity && matchDay;
         })
             .forEach(showing => {
@@ -77,16 +77,16 @@ export const cityShowingData = async (req: Request, res: Response) => {
 
                 if (filteredScreens.length === 0) return;
 
-                if (!groupByDay[day.dayOffset]) {
+                if (!groupByDay[day.day_offset]) {
 
-                    groupByDay[day.dayOffset] = {
+                    groupByDay[day.day_offset] = {
                         id : day.id,
-                        dayOffset: day.dayOffset,
+                        dayOffset: day.day_offset,
                         cities: []
                     };
                 }
 
-                const cityGroup = groupByDay[day.dayOffset].cities;
+                const cityGroup = groupByDay[day.day_offset].cities;
                 let cityEntry = cityGroup.find(c => c.name === city.name);
 
                 if (!cityEntry) {

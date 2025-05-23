@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store/store'
 import { useNavigate } from 'react-router'
 import { useCreateCheckoutSessionMutation } from '../../../store/features/Payment/paymentApi'
+import { toast } from 'react-toastify'
+import { setBookingId } from '../../../store/features/Payment/PaymentSlice'
 
 const TransactionCard = () => {
 
@@ -29,7 +31,7 @@ const TransactionCard = () => {
 
         try{
 
-            const stripeUrl = await createCheckoutSession({
+            const response = await createCheckoutSession({
                 userId,
                 movieId,
                 theatreId,
@@ -37,13 +39,15 @@ const TransactionCard = () => {
                 slotId,
                 seatIds,
                 dayOffset,
-                totalAmount
-            }).unwrap() as {url: string};
+                totalAmount : totalPayment
+            }).unwrap() as {url: string , bookingId : string}; 
 
-            window.location.replace(stripeUrl.url as string);
+            dispatch(setBookingId(response.bookingId));
+            window.location.replace(response.url as string);
 
         }catch(err){
-            console.log("STRIPE ERROR : ", err)
+            console.log("STRIPE ERROR : ", err);
+            toast.error('Failed to initiate payment');
         }
 
 

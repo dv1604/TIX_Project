@@ -56,6 +56,7 @@ const MovieSlice = createSlice({
           setSearchTheatre: (state, action: PayloadAction<string>) => {
             state.searchTheatre = action.payload;
         }
+        
     }
 })
 

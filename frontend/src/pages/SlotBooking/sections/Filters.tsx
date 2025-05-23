@@ -1,22 +1,41 @@
 import { ArrowDropDown, ArrowDropUp, Search } from '@mui/icons-material'
 import { Container, FormControl, InputAdornment, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store/store'
 import { movieActions } from '../../../store/features/Movie/MovieSlice'
 import FilterDropdown from '../../../components/FilterDropdown'
-import { useFilterOptionsQuery } from '../../../store/features/Movie/movieApi'
+import { useFilterOptionsMutation } from '../../../store/features/Movie/movieApi'
+import { useParams } from 'react-router'
 
 const Filters = () => {
+
+    const {id} = useParams();
+    const [ filterOption , {isLoading}] = useFilterOptionsMutation();
     
     const dispatch = useDispatch();
-    const { selectedStudio, selectedChain, selectedMovie } = useSelector((state: RootState) => {
+    const { selectedStudio, selectedChain, selectedOffset, selectedCity } = useSelector((state: RootState) => {
         return state.movie
     })
 
-    const {data} = useFilterOptionsQuery();
+    const [filter , setFilter] = useState<{ screenNames: string[], chains: string[], cities: string[] }>()
 
-    console.log(data?.screenNames)
+
+    useEffect(() => {
+
+        const fetchFilter = async() => {
+            
+            const res = await  filterOption({movieId : Number(id), day : selectedOffset , city : selectedCity }).unwrap();
+            setFilter(res)
+        }
+
+        if(id){
+            fetchFilter()
+        }
+
+    },[id , filterOption , selectedCity , selectedOffset])
+
+    console.log(filter?.screenNames)
     
     // studio filter handlers
     const studios = ['XXI', '2D', 'CGV', 'GOLD CLASS 2D', 'VELVET 2D', 'CINEPOLIS', 'REGULAR 2D'];
@@ -107,7 +126,7 @@ const Filters = () => {
                 <FilterDropdown
                     value={selectedStudio ?? ''}
                     onChange={handleStudio}
-                    options={data ? data?.screenNames : []}
+                    options={filter ? filter?.screenNames : []}
                     placeholder='Studio'
                 />
                 {/* Sorting Filter */}
@@ -121,7 +140,7 @@ const Filters = () => {
                 <FilterDropdown
                     value={selectedChain ?? ''}
                     onChange={handleCinema}
-                    options={data ? data?.chains : []}
+                    options={filter ? filter?.chains : []}
                     placeholder='Cinema'
                 />
             </Container>

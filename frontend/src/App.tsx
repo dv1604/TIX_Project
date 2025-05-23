@@ -21,8 +21,9 @@ import Ticket from "./pages/Ticket";
 import VideoPage from "./pages/News/sections/VideoPage";
 
 import { useCheckAuthQuery } from "./store/features/Authentication/authApi";
-import { loginSuccess, logoutStatus } from "./store/features/Authentication/authSlice";
+import { loginSuccess, logoutStatus, setLoginName } from "./store/features/Authentication/authSlice";
 import { resetPaymentDetails, setUserId } from "./store/features/Payment/PaymentSlice";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const location = useLocation();
@@ -36,10 +37,11 @@ const App = () => {
     if (!isLoading && data?.isAuthenticated) {
       dispatch(loginSuccess(data.isAuthenticated));
       dispatch(setUserId(data.id));
+      dispatch(setLoginName(data.name))
     } else {
       dispatch(logoutStatus());
     }
-  }, [isLoading, data, dispatch]);
+  }, [isLoading, data, dispatch ]);
 
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const { isPaymentDone, isSeatSelected, isSlotSelected } = useSelector((state: RootState) => state.booking);
@@ -52,33 +54,47 @@ const App = () => {
   }, [location, dispatch]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/home" />} />
+    <>
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
 
-      {/* Protected layout with header/footer */}
-      <Route path="/" element={<Layout />}>
-        <Route path="home" element={<Homepage />} />
-        <Route path="my-tickets/*" element={<MyTickets />} />
-        <Route path="news" element={<News />} />
-        <Route path="news/:id" element={<NewsDetail />} />
-        <Route path="video/:id" element={<VideoPage />} />
-        <Route path="coming-soon" element={<ComingSoonPage />} />
-        <Route path="slots/:id" element={<SlotBooking />} />
-        <Route path="seat" element={isSlotSelected ? <SeatBooking /> : <Navigate to="/home" />} />
-        <Route path="payment" element={isSeatSelected ? <Payment /> : <Navigate to="/seat" />} />
-        <Route path="payment-confirmation" element={<PaymentConfirmation />} />
-        <Route path="ticket" element={<Ticket />} />
-      </Route>
+        {/* Protected layout with header/footer */}
+        <Route path="/" element={<Layout />}>
+          <Route path="home" element={<Homepage />} />
+          <Route path="my-tickets/*" element={<MyTickets />} />
+          <Route path="news" element={<News />} />
+          <Route path="news/:id" element={<NewsDetail />} />
+          <Route path="video/:id" element={<VideoPage />} />
+          <Route path="coming-soon" element={<ComingSoonPage />} />
+          <Route path="slots/:id" element={<SlotBooking />} />
+          <Route path="seat" element={isSlotSelected ? <SeatBooking /> : <Navigate to="/home" />} />
+          <Route path="payment" element={isSeatSelected ? <Payment /> : <Navigate to="/seat" />} />
+          <Route path="payment-confirmation" element={<PaymentConfirmation />} />
+          <Route path="ticket" element={<Ticket />} />
+        </Route>
 
-      {/* Auth-only pages */}
-      {!isAuthenticated && (
-        <>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/email-input" element={<EmailInput />} />
-        </>
-      )}
-    </Routes>
+        {/* Auth-only pages */}
+        {!isAuthenticated && (
+          <>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/email-input" element={<EmailInput />} />
+          </>
+        )}
+      </Routes>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
 };
 

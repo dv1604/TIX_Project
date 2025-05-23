@@ -97,7 +97,7 @@ export const getAllNews = async(req:Request , res : Response) => {
     return;
 
   }catch(err){
-    res.status(400).json({error: "Error fetching news"});
+    res.status(400).json({message: "Error fetching news"});
     return;
   }
 

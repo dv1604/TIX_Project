@@ -130,6 +130,7 @@ const DateSelection = () => {
                                         onClick={() => {
                                             dispatch(movieActions.setOffset(index))
                                             dispatch(setDayOffset(index))     
+                                            dispatch(movieActions.resetFilters())
                                         }}
                                         disabled={isDisabled}
                                     >

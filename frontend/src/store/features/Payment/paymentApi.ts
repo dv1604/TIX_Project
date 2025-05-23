@@ -8,17 +8,33 @@ export const paymentApi = createApi({
         baseUrl : "http://localhost:5000",
         credentials : "include"
     }),
+    tagTypes: ['Payment'],
     endpoints : (builder) => ({
-        createCheckoutSession : builder.mutation<{url : string}, stripePayload >({
+        createCheckoutSession : builder.mutation<{url : string , bookingId : string}, stripePayload >({
             query : (sessionData) => ({
                 url : "/api/bookings/create",
                 method : "POST",
                 body : sessionData
-            })
+            }),
+            invalidatesTags : ['Payment'],
+        }),
+
+        getBookingStatus : builder.query<{message : string ,success:boolean}, {bookingId : string}>({
+            query : ({bookingId}) => {
+
+                const params = new URLSearchParams();
+
+                if(bookingId) params.append("session_id" , bookingId)
+
+               return  {
+                url : `/api/bookings/status?${params.toString()}`,
+                method : 'GET',}
+            },
+            providesTags : ['Payment'],
         })
     })
 
 })
 
-export const {useCreateCheckoutSessionMutation} = paymentApi;
+export const {useCreateCheckoutSessionMutation , useGetBookingStatusQuery} = paymentApi;
 export default paymentApi.reducer;

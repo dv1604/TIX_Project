@@ -14,12 +14,16 @@ const DownloadCard: React.FC<DownloadCardProps> = ({ onDownload }) => {
     return state.slots
   })
 
+  const {bookingId} = useSelector((state : RootState) => {
+    return state.payment
+  })
+
   const count = Array.from({length:15})
 
   const details = [
     {
       label: 'booking code',
-      value: '037491740184392'
+      value: bookingId
     },
     {
       label: 'password key',
@@ -37,7 +41,8 @@ const DownloadCard: React.FC<DownloadCardProps> = ({ onDownload }) => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          width: '100%'
+          width: '100%',
+          
         }}>
         <Card
           sx={{
@@ -57,7 +62,7 @@ const DownloadCard: React.FC<DownloadCardProps> = ({ onDownload }) => {
                 key={index}
                 sx={{
                   display: 'flex',
-                  gap: {xs:1,sm:3},
+                  gap: {xs:1,sm:0},
                   alignItems: 'center'
                 }}>
                 <Typography
@@ -81,7 +86,7 @@ const DownloadCard: React.FC<DownloadCardProps> = ({ onDownload }) => {
             onClick={onDownload}
             sx={{
               position: "absolute",
-              right: 40,
+              right: 20,
               bottom: 35,
               border: '2px solid',
               borderColor: 'grey.900',

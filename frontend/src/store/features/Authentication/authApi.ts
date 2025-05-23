@@ -50,7 +50,7 @@ export const authApi = createApi({
                 invalidatesTags:["Auth"]
             }),
 
-        checkAuth : builder.query<{isAuthenticated : boolean,id : number},void>({
+        checkAuth : builder.query<{isAuthenticated : boolean,id : number , name : string},void>({
             query : () => ({
                 url : "/checkauth",
                 method: "GET",

@@ -14,7 +14,8 @@ export const bookingApi = createApi({
                 url : "/api/bookings",
                 method : "GET"
             })
-        })
+        }),
+
     })
 
 })

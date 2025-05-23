@@ -13,7 +13,7 @@ export class Slot{
     time: string;
 
     @ManyToOne(() =>  Screens , (screen) => screen.slots)
-    @JoinColumn({name : "screenId"})
+    @JoinColumn({name : "screen_id"})
     screen : Screens;
 
     @OneToMany(()=>Seats ,(seat) => seat.slot)

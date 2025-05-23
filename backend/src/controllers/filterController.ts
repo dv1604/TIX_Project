@@ -3,23 +3,51 @@ import { AppDataSource } from "../config/database";
 import { Cities } from "../entities/Cities";
 import { Screens } from "../entities/Screens";
 import { Theatre } from "../entities/Theatre";
+import { CityShowing } from "../entities/CityShowing";
+import { Days } from "../entities/Days";
 
 const screenRepo = AppDataSource.getRepository(Screens);
-const theatreRepo = AppDataSource.getRepository(Theatre);
+const dayRepo = AppDataSource.getRepository(Days);
 const cityRepo = AppDataSource.getRepository(Cities);
+const cityShowingRepo = AppDataSource.getRepository(CityShowing);
 
 export const getfilterOptions = async (req: Request, res: Response) => {
+
+    const movieId = parseInt(req.params.movieId);
+
+    const day = parseInt(req.query.day as string);
+    const city = req.query.city as string;
+
+    
+    
+    
     try {
 
-        const screenNames = await screenRepo
-            .createQueryBuilder("screens")
-            .select("DISTINCT screens.name", "name")
-            .getRawMany();
+        const theatreFound = await cityShowingRepo.find({
+            where : {movie : {
+                id : movieId
+            },
+            day :{
+                day_offset : day
+            },
+            city:{
+                name : city
+            }},
+            relations : {
+                theatre : true,
+                screens : true
+            }
+        })
 
-        const chains = await theatreRepo
-            .createQueryBuilder("theatre")
-            .select("DISTINCT theatre.chain", "chain")
-            .getRawMany();
+        const screenNames = theatreFound.map((theatre,index) => {
+            return theatre.screens.map((screen) => {
+                return screen.name
+            })
+        });
+
+        const chains = theatreFound.map((theatre,index) => {
+            return theatre.theatre.chain
+        });
 
         const cities = await cityRepo
             .createQueryBuilder("cities")
@@ -27,8 +55,8 @@ export const getfilterOptions = async (req: Request, res: Response) => {
             .getRawMany();
 
         res.status(200).json({
-            screenNames: screenNames.map(screen => screen.name),
-            chains: chains.map(chain => chain.chain),
+            screenNames: [... new Set(screenNames.flat())],
+            chains: [... new Set(chains)],
             cities: cities.map(city => city.name)
         });
 

@@ -15,7 +15,7 @@ interface movieData {
 }
 
 export const movieApi = createApi({
-    reducerPath: "movieAuth",
+    reducerPath: "movieApi",
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:5000",
         credentials: "include"
@@ -45,11 +45,19 @@ export const movieApi = createApi({
             }
         }),
 
-        filterOptions: builder.query<{ screenNames: string[], chains: string[], cities: string[] }, void>({
-            query: () => ({
-                url: "/api/filters/options",
-                method: "GET"
-            })
+        filterOptions: builder.mutation<{ screenNames: string[], chains: string[], cities: string[] }, {movieId : number,day? : number , city? : string| null}>({
+            query: ({movieId,day,city}) => {
+
+                const params = new URLSearchParams();
+
+                if(day!== undefined) params.append("day" , day.toString());
+                if(city) params.append("city",city)
+
+            
+               return {
+                 url: `/api/filters/options/${movieId}?${params.toString()}`,
+                method: "GET"}
+            }
         }),
 
         
@@ -62,5 +70,5 @@ export const movieApi = createApi({
 
 })
 
-export const { useGetAllMovieQuery, useMovieDetailMutation, useFilterOptionsQuery } = movieApi;
+export const { useGetAllMovieQuery, useMovieDetailMutation, useFilterOptionsMutation } = movieApi;
 export default movieApi.reducer;

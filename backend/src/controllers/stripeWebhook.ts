@@ -28,7 +28,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     } catch (err) {
 
         console.log("Webhook signature verification failed.", err);
-        res.status(400).send(`Webhook Error : ${err}`);
+        res.status(400).json({message :`Webhook Error : ${err}`});
         return;
 
     }
@@ -44,7 +44,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
 
     if (!bookingId) {
         console.log("❌ Booking not found in DB");
-        res.status(400).send("No booking Id provided");
+        res.status(400).json({message :"No booking Id provided"});
         return;
     }
 
@@ -56,14 +56,14 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     });
 
     if (!booking) {
-        res.status(404).send("No Booking found with this id");
+        res.status(404).json({message:"No Booking found with this id"});
         return;
     }
 
     if (event.type === "checkout.session.completed") {
 
         booking.payment_status = PaymentStatus.SUCCESS;
-        booking.transactionId = session.payment_intent as string;
+        booking.transaction_id = session.payment_intent as string;
 
         if (booking.seats && booking.seats.length > 0) {
             for (const seat of booking.seats) {
@@ -75,6 +75,8 @@ export const stripeWebhook = async (req: Request, res: Response) => {
 
         await bookingRepo.save(booking);
         console.log("Payment  Successful . Booking & Seat updated");
+        res.status(200).json({message : "Payment  Successful . Booking & Seat updated"});
+        return;
     } else if (eventType === "payment_intent.payment_failed") {
 
 
@@ -82,30 +84,39 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         const bookingId = intent.metadata?.bookingId;
 
         if (!bookingId) {
-            res.status(400).send("No bookingId in metadata");
+            res.status(400).json({message : "No bookingId in metadata"});
             return;
         }
 
         const booking = await bookingRepo.findOneBy({ id: bookingId });
         if (!booking) {
-            res.status(404).send("Booking not found");
+            res.status(404).json({message:"Booking not found"});
             return;
         }
 
         booking.payment_status = PaymentStatus.FAILED;
-        booking.transactionId = intent.id;
+        booking.transaction_id = intent.id;
 
         await bookingRepo.save(booking);
         console.log("❌ Payment failed. Booking updated.");
 
+         res.status(200).json({
+            message: "Payment failed. Booking updated.",
+        });
+        return;
 
     }
     else if (eventType === "checkout.session.expired") {
 
         booking.payment_status = PaymentStatus.FAILED;
-        booking.transactionId = session.payment_intent as string;
+        booking.transaction_id = session.payment_intent as string;
         await bookingRepo.save(booking);
         console.log("Payment expired. Booking marked as failed")
+
+        res.status(200).json({
+            message: "Payment expired. Booking marked as failed."
+        });
+        return;
 
     } else {
         console.log(`Unhandled event type: ${event.type}`);

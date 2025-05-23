@@ -8,7 +8,7 @@ export class Days{
     id : number;
 
     @Column()
-    dayOffset: number;
+    day_offset: number;
 
     @OneToMany(() => CityShowing , (cityShowing) => cityShowing.day)
     cityShowings : CityShowing[];

@@ -80,7 +80,7 @@ export class Booking{
     payment_status : PaymentStatus;
 
     @Column({nullable : true})
-    transactionId : string
+    transaction_id : string
 
     @CreateDateColumn()
     createdAt : Date

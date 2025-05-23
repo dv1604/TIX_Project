@@ -1,7 +1,7 @@
 import { Box, Button, Container, Typography } from '@mui/material'
 import React from 'react'
 import ASSESTS from '../../../assests'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { completePayment } from '../../../store/features/Booking/bookingSlice'
 
@@ -9,6 +9,8 @@ const Confirmation = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+
 
     const handleSubmit = () => {
         dispatch(completePayment())

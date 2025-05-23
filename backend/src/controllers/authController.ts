@@ -81,10 +81,10 @@ export const signup = async (req: Request, res: Response) => {
         await userRepo.save(newUser);
         const token = createToken(email);
         res.cookie('jwt', token, {
-            httpOnly: true,
+            httpOnly: false,
             maxAge: 1000 * age
         });
-        res.status(201).send('New User Created');
+        res.status(201).json({message :'New User Created'});
     } catch (err) {
         res.status(400).json(handleErrors(err))
     }
@@ -100,27 +100,27 @@ export const login = async (req: Request, res: Response) => {
 
         if (!userFound) {
 
-            res.status(400).json({ error: 'No User Found' });
+            res.status(400).json({ message: 'No User Found' });
             return;
 
         }
 
         const passwordCheck = await compare(password, userFound.password);
         if (!passwordCheck) {
-            res.status(400).json({ error: 'Incorrect Password' });
+            res.status(400).json({ message: 'Incorrect Password' });
             return;
         }
 
         const token = createToken(userFound.email);
         res.cookie('jwt', token, {
-            httpOnly: true,
+            httpOnly: false,
             maxAge: 1000 * age
         });
         res.json({ message: 'Login Succesfully', name: userFound.name });
         return;
 
     } catch (err) {
-        res.status(500).json({ error: "Internal Server Error" })
+        res.status(500).json({ message: "Internal Server Error" })
     }
 
 
@@ -137,7 +137,7 @@ export const requireAuth = (req: Request, res: Response) => {
         // console.log(token)
 
         if (!token) {
-            res.json({ isAuthenticated: false });
+            res.status(401).json({ isAuthenticated: false });
             return;
         }
 
@@ -145,23 +145,23 @@ export const requireAuth = (req: Request, res: Response) => {
             console.log(decoded.email)
             if (err) {
 
-                res.json({ isAuthenticated: false });
+                res.status(401).json({ isAuthenticated: false });
                 return;
             }
 
             const user = await userRepo.findOneBy({ email: decoded.email })
 
             if (!user) {
-                res.json({ isAuthenticated: false });
+                res.status(401).json({ isAuthenticated: false });
                 return;
             }
 
             console.log(user.id)
 
-            res.json({ isAuthenticated: true, id: user.id })
+            res.json({ isAuthenticated: true, id: user.id , name : user.name})
         })
     } catch (err) {
         console.log(err)
-        res.status(500).json({ error: err })
+        res.status(500).json({ message : err })
     }
 }
